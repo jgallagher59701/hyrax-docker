@@ -12,7 +12,7 @@ echo "Greetings, I am "`whoami`"." >&2
 set -e
 #set -x
 
-bes_debug="${BES_DEBUG:- -d \"/dev/null,timing\"}"
+bes_debug="${BES_DEBUG:- -d /dev/null,timing}"
 echo "bes_debug: ${bes_debug}"
 echo "CATALINA_HOME: ${CATALINA_HOME}"
 export PATH=${CATALINA_HOME}/bin:$PATH
