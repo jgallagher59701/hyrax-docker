@@ -285,7 +285,7 @@ RUN set -e \
 # And then we update the bes.conf to use the user bes and the group bes.
 RUN set -e \
     && cat $prefix/etc/bes/bes.conf | sed -e "s/user_name/bes/g" -e "s/group_name/be/g" > foo \
-    && mv foo $prefix/etc/bes/bes.conf
+    && mv foo $prefix/etc/bes/bes.conf \
     && echo "BES user and group set to 'bes'" >&2
 
 # And then we cleanup.
