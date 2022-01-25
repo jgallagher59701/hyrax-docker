@@ -12,6 +12,7 @@ echo "Greetings, I am "`whoami`"." >&2
 set -e
 #set -x
 
+bes_debug="${BES_DEBUG:- -d \"/dev/null,timing\"}"
 
 echo "CATALINA_HOME: ${CATALINA_HOME}"
 export PATH=${CATALINA_HOME}/bin:$PATH
@@ -25,7 +26,7 @@ echo "PATH: ${PATH}"
 export DEPLOYMENT_CONTEXT="HYRAX_DEPLOYMENT_CONTEXT"
 echo "DEPLOYMENT_CONTEXT: ${DEPLOYMENT_CONTEXT}"
 
-while true ; do sleep 1; done
+# while true ; do sleep 1; done
 
 ################################################################################
 # Inject one set of credentials into .netrc
@@ -209,7 +210,7 @@ fi
 
 # Start the BES daemon process
 # /usr/bin/besdaemon -i /usr -c ${prefix}/etc/bes/bes.conf -r ${prefix}/var/run/bes.pid
-besctl start -d "/dev/null,timing" >&2
+besctl start ${bes_debug} >&2
 status=$?
 if [ $status -ne 0 ]; then
     echo "ERROR: Failed to start BES: $status" >&2
