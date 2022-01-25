@@ -17,7 +17,7 @@ echo "bes_debug: ${bes_debug}"
 echo "CATALINA_HOME: ${CATALINA_HOME}"
 export PATH=${CATALINA_HOME}/bin:$PATH
 
-export prefix="HYRAX_BUILD_PREFIX"
+export prefix=${prefix:-}
 echo "prefix: ${prefix}"
 
 export PATH=$prefix/bin:$prefix/deps/bin:$PATH
