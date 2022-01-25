@@ -273,7 +273,7 @@ RUN set -e \
 # And then make check
 RUN set -e \
     && cd /hyrax/bes \
-    && echo "BES: make check" >&2 \
+    && echo "BES: $MAKE check" >&2 \
     && $MAKE check
 
 # And then we install.
@@ -281,6 +281,12 @@ RUN set -e \
     && cd /hyrax/bes \
     && echo "BES: make install" >&2 \
     && make install
+
+# And then we update the bes.conf to use the user bes and the group bes.
+RUN set -e \
+    && cat $prefix/etc/bes/bes.conf | sed -e "s/user_name/bes/g" -e "s/group_name/be/g" > foo \
+    && mv foo $prefix/etc/bes/bes.conf
+    && echo "BES user and group set to 'bes'" >&2
 
 # And then we cleanup.
 RUN set -e \
@@ -512,6 +518,7 @@ EXPOSE 8443
 EXPOSE 10022
 EXPOSE 11002
 
+USER bes
 
 CMD ["-"]
 
