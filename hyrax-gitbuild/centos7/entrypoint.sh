@@ -261,7 +261,7 @@ while /bin/true; do
         echo "TOMCAT_STATUS: $TOMCAT_STATUS tomcat_pid:$tomcat_pid" >&2
     fi
 
-    tail -f $prefix/var/bes/bes.log
+    tail -f $prefix/var/bes.log
 
 done
 
