@@ -260,7 +260,7 @@ while /bin/true; do
         echo "TOMCAT_STATUS: $TOMCAT_STATUS tomcat_pid:$tomcat_pid" >&2
     fi
 
-    tail -f /var/log/bes/bes.log | awk -f beslog2json.awk
+    tail -f /hyrax/build/var/bes.log | awk -f beslog2json.awk
 
 done
 
