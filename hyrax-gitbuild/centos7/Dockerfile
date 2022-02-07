@@ -318,7 +318,7 @@ RUN set -e \
 RUN set -e \
     && echo "OLFS: Cloning" \
     && cd /hyrax \
-    && git clone --depth 1 ${GIT_SERVICE}/OPENDAP/olfs olfs \
+    && git clone ${GIT_SERVICE}/OPENDAP/olfs olfs \
     && cd olfs \
     && git checkout master
 #
