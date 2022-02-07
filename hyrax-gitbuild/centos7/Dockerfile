@@ -501,6 +501,8 @@ RUN set -e \
 
 USER root
 
+COPY beslog2json.awk /
+RUN  set -e && chmod +x beslog2json.awk
 COPY entrypoint.sh /
 RUN set -e \
     && which sed \
