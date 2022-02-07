@@ -336,7 +336,7 @@ RUN set -e \
 #
 # Build the version string
 #
-ENV HYRAX_VERSION_BASE "libdap:${LIBDAP_BRANCH}, bes:${BES_BRANCH}, h4:${H4_BRANCH}, h5:${H5_BRANCH}, olfs:${OLFS_BRANCH}"
+ENV HYRAX_VERSION_BASE "libdap:${LIBDAP_BRANCH}, bes:${BES_BRANCH}, olfs:${OLFS_BRANCH}"
 RUN set -e && \
     echo "HYRAX_VERSION_BASE: ${HYRAX_VERSION_BASE}"
 #
