@@ -25,7 +25,7 @@ echo "PATH: ${PATH}"
 export DEPLOYMENT_CONTEXT="HYRAX_DEPLOYMENT_CONTEXT"
 echo "DEPLOYMENT_CONTEXT: ${DEPLOYMENT_CONTEXT}"
 
-while true ; do sleep 1; done
+# while true ; do sleep 1; done
 
 ################################################################################
 # Inject one set of credentials into .netrc
