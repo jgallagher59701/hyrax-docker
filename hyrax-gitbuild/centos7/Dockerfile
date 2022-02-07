@@ -318,7 +318,9 @@ RUN set -e \
 RUN set -e \
     && echo "OLFS: Cloning" \
     && cd /hyrax \
-    && git clone --depth 1 ${GIT_SERVICE}/OPENDAP/olfs olfs
+    && git clone --depth 1 ${GIT_SERVICE}/OPENDAP/olfs olfs \
+    && cd olfs \
+    && git checkout master
 #
 # Check out target branch
 #
@@ -330,7 +332,7 @@ RUN set -e && \
 RUN set -e \
     && cd /hyrax/olfs \
     && echo "OLFS: Checking out branch: ${OLFS_BRANCH}" \
-    && git checkout ${OLFS_BRANCH}
+    && git checkout "${OLFS_BRANCH}"
 #
 # Build the version string
 #
