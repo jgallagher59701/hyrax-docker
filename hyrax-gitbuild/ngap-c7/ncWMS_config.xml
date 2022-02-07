@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config>
+    <datasets>
+        <!--dataset id="coads_climatology" title="COADS via DAP2" location="http://localhost:8080/opendap/data/nc/coads_climatology.nc" queryable="true" downloadable="false" dataReaderClass="" copyrightStatement="" moreInfo="" disabled="false" updateInterval="-1">
+            <variables/>
+        </dataset -->
+    </datasets>
+    <cache enabled="true">
+        <inMemorySizeMB>256</inMemorySizeMB>
+        <elementLifetimeMinutes>10.0</elementLifetimeMinutes>
+    </cache>
+    <dynamicServices>
+        <dynamicService alias="lds" servicePath="http://localhost:8080/opendap/" datasetIdMatch=".*" dataReaderClass="" copyrightStatement="" moreInfoUrl="" disabled="false" queryable="true" downloadable="false"/>
+    </dynamicServices>
+    <contact>
+        <name>OPeNDAP Docker</name>
+        <organization>OPeNDAP</organization>
+        <telephone></telephone>
+        <email>support@opendap.og</email>
+    </contact>
+    <server>
+        <title>ncWMS Server</title>
+        <allowFeatureInfo>true</allowFeatureInfo>
+        <maxImageWidth>1024</maxImageWidth>
+        <maxImageHeight>1024</maxImageHeight>
+        <abstract></abstract>
+        <keywords></keywords>
+        <url>http://@COMMAND_LINE_STUFF@</url>
+        <allowglobalcapabilities>true</allowglobalcapabilities>
+    </server>
+</config>

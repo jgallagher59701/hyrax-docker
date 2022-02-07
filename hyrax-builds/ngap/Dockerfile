@@ -68,7 +68,7 @@ ARG TOMCAT_CONNECTION_TIMEOUT_MS
 ENV TOMCAT_CONNECTION_TIMEOUT_MS=${TOMCAT_CONNECTION_TIMEOUT_MS:-"1000000"}
 RUN echo "TOMCAT_CONNECTION_TIMEOUT_MS: ${TOMCAT_CONNECTION_TIMEOUT_MS}"
 
-LABEL vendor="OPeNDAP"
+LABEL vendor="OPeNDAP Inc."
 LABEL org.opendap.hyrax.version=snapshot
 LABEL org.opendap.hyrax.release-date=RELEASE_DATE
 LABEL org.opendap.hyrax.version.is-production="false"
@@ -80,8 +80,7 @@ USER root
 ARG DEVELOPER_MODE
 ENV DEVELOPER_MODE ${DEVELOPER_MODE:-"false"}
 RUN set -e && \
-    if [ $DEVELOPER_MODE = "true" ];then echo "DEVELOPER_MODE: ENABLED"; else echo "DEVELOPER_MODE: DISABLED"; fi
-
+    if [ $DEVELOPER_MODE = "true" ];then echo "DEVELOPER_MODE: ENABLED" >&2 ; else echo "DEVELOPER_MODE: DISABLED" >&2 ; fi
 
 # Update and install the needful.
 RUN yum -y install tomcat unzip which awscli autoconf automake git bc emacs vim
@@ -96,8 +95,8 @@ RUN yum -y update
 # Tomcat environment (Tomcat installed above by via yum)
 #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 ENV CATALINA_HOME /usr/share/tomcat
-ENV PATH $CATALINA_HOME/bin:$PATH
-RUN echo "CATALINA_HOME: $CATALINA_HOME"
+ENV PATH ${CATALINA_HOME}/bin:${PATH}
+RUN echo "CATALINA_HOME: ${CATALINA_HOME}" >&2
 
 
 ################################################################
