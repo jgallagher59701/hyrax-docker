@@ -330,8 +330,7 @@ RUN set -e \
 #
 ARG OLFS_BRANCH
 ENV OLFS_BRANCH ${OLFS_BRANCH:-"master"}
-RUN set -e && \
-    echo "OLFS_BRANCH: ${OLFS_BRANCH}"
+RUN set -e && echo "OLFS_BRANCH: ${OLFS_BRANCH}"
 
 RUN set -e \
     && cd /hyrax/olfs \
@@ -341,15 +340,13 @@ RUN set -e \
 # Build the version string
 #
 ENV HYRAX_VERSION_BASE "libdap:${LIBDAP_BRANCH}, bes:${BES_BRANCH}, olfs:${OLFS_BRANCH}"
-RUN set -e && \
-    echo "HYRAX_VERSION_BASE: ${HYRAX_VERSION_BASE}"
+RUN set -e && echo "HYRAX_VERSION_BASE: ${HYRAX_VERSION_BASE}"
 #
 # Build the OLFS
 #
 ARG OLFS_BUILD_TARGET
 ENV OLFS_BUILD_TARGET ${OLFS_BUILD_TARGET:-"server"}
-RUN set -e && \
-    echo "OLFS_BUILD_TARGET: ${OLFS_BUILD_TARGET}"
+RUN set -e && echo "OLFS_BUILD_TARGET: ${OLFS_BUILD_TARGET}"
 
 RUN set -e \
     && cd /hyrax/olfs \
