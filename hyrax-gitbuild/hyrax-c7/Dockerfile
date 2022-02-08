@@ -317,6 +317,7 @@ RUN set -e \
 # Clone the repo
 ARG OLFS_FORCE_REBUILD
 ENV OLFS_FORCE_REBUILD ${OLFS_FORCE_REBUILD:-"nope"}
+RUN set -e && echo "OLFS_FORCE_REBUILD: ${OLFS_FORCE_REBUILD}"
 
 RUN set -e \
     && echo "OLFS: Cloning" \
@@ -346,7 +347,7 @@ RUN set -e && \
 # Build the OLFS
 #
 ARG OLFS_BUILD_TARGET
-ENV OLFS_BUILD_TARGET ${OLFS_BUILD_TARGET:-"opendap"}
+ENV OLFS_BUILD_TARGET ${OLFS_BUILD_TARGET:-"server"}
 RUN set -e && \
     echo "OLFS_BUILD_TARGET: ${OLFS_BUILD_TARGET}"
 
