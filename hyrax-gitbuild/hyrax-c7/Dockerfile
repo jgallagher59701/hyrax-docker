@@ -315,6 +315,9 @@ RUN set -e \
 #
 #
 # Clone the repo
+ARG OLFS_FORCE_REBUILD
+ENV OLFS_FORCE_REBUILD ${OLFS_FORCE_REBUILD:-"nope"}
+
 RUN set -e \
     && echo "OLFS: Cloning" \
     && cd /hyrax \
