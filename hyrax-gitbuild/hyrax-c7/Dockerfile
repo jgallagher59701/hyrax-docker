@@ -359,10 +359,6 @@ COPY tomcat7-server.xml /
 RUN set -e \
     && mv /tomcat7-server.xml ${CATALINA_HOME}/conf/server.xml \
     && chown -R tomcat:tomcat ${CATALINA_HOME}/conf/server.xml
-#
-# Back to the 'bes' user.
-#
-USER bes
 
 RUN set -e \
     && cd /hyrax/olfs \
@@ -441,6 +437,7 @@ RUN set -e \
         echo -n "Skipping OLFS/ncWMS confguration installation. Removing: "; \
         rm -f /tmp/olfs_viewers.xml; \
     fi
+
 USER bes
 
 ###############################################################
