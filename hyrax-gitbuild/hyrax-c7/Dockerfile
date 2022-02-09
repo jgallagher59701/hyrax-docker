@@ -197,6 +197,10 @@ RUN set -e \
 ###############################################################
 # Retrieve, build, and install BES
 #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+ARG BES_FORCE
+ENV BES_FORCE ${BES_FORCE:-"nope"}
+RUN set -e && echo "BES_FORCE_REBUILD: ${BES_FORCE_REBUILD}"
+
 #
 # First we clone the BES repo.
 RUN set -e \
@@ -224,42 +228,6 @@ RUN set -e \
     && echo "BES: Checking out BES branch: ${BES_BRANCH}" >&2 \
     && git checkout ${BES_BRANCH}  \
     && git branch
-#
-# Now we check out the requested hdf4_handler branch
-#
-# @FIXME This checkout code does not work if the branch is not "master"
-#
-#ARG H4_BRANCH
-#ENV H4_BRANCH ${H4_BRANCH:-"master"}
-#RUN set -e && \
-#    echo "H4_BRANCH: ${H4_BRANCH}" >&2
-#
-
-# Checkout the branch
-#RUN set -e \
-#    && cd /hyrax/bes/modules/hdf4_handler \
-#    && echo "BES: Checking out hdf4_handler branch: ${H4_BRANCH}" >&2 \
-#    && git checkout ${H4_BRANCH} \
-#    && git branch
-
-
-#
-# Now we check out the requested hdf5_handler branch
-#
-# @FIXME This checkout code does not work if the branch is not "master"
-#
-#ARG H5_BRANCH
-#ENV H5_BRANCH ${H5_BRANCH:-"master"}
-#RUN set -e && \
-#    echo "H5_BRANCH: ${H5_BRANCH}"  >&2
-
-#
-# Checkout the branch
-#RUN set -e \
-#    && cd /hyrax/bes/modules/hdf5_handler \
-#    && echo "BES: Checking out hdf5_handler branch: ${H5_BRANCH}" >&2 \
-#    && git checkout ${H5_BRANCH} \
-#    && git branch
 
 #
 # And we run configure
@@ -323,9 +291,9 @@ RUN set -e \
 #
 #
 # Clone the repo
-ARG OLFS_FORCE_REBUILD
-ENV OLFS_FORCE_REBUILD ${OLFS_FORCE_REBUILD:-"nope"}
-RUN set -e && echo "OLFS_FORCE_REBUILD: ${OLFS_FORCE_REBUILD}"
+ARG OLFS_FORCE
+ENV OLFS_FORCE ${OLFS_FORCE:-"nope"}
+RUN set -e && echo "OLFS_FORCE: ${OLFS_FORCE}"
 
 RUN set -e \
     && echo "OLFS: Cloning" \

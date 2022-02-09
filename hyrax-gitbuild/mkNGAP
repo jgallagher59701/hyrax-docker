@@ -13,5 +13,6 @@ docker buildx build ${platform} \
     --build-arg OLFS_BRANCH="detectClientProtcolChange" \
     --build-arg HYRAX_DEPLOYMENT_CONTEXT=ROOT \
     --build-arg OLFS_BUILD_TARGET=ngap \
-    --build-arg OLFS_FORCE_REBUILD=true \
+    --build-arg BES_FORCE=true \
+    --build-arg OLFS_FORCE=true \
     hyrax-c7
