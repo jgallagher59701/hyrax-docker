@@ -272,8 +272,8 @@ USER root
 # And then we cleanup.
 RUN set -x \
     && cd /hyrax/bes \
-    && echo "BES: make clean" >&2 \
-    && make clean
+    && echo "BES: make -k clean" >&2 \
+    && make -k clean
 
 RUN set -e \
     && ln -s ${prefix}/etc/bes /etc/bes \
