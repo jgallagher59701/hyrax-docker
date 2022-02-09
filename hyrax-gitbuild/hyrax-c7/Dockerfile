@@ -303,6 +303,9 @@ RUN set -e \
     && echo "${bes_site_conf_file}:" >&2 \
     && cat "${bes_site_conf_file}"  >&2
 
+
+USER root
+
 RUN set -e \
     && ln -s ${prefix}/etc/bes /etc/bes \
     && ls -l /etc/bes
