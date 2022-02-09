@@ -302,6 +302,11 @@ RUN set -e \
     && echo "BES.Group=bes" >> "${bes_site_conf_file}" \
     && echo "${bes_site_conf_file}:" >&2 \
     && cat "${bes_site_conf_file}"  >&2
+
+RUN set -e \
+    && ln -s ${prefix}/etc/bes /etc/bes \
+    && ls -l /etc/bes
+
 #
 # Assign ownership of the deployment stack to the 'bes' user and group.
 RUN set -e \
