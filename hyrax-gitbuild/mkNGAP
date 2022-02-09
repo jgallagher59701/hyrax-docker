@@ -9,7 +9,7 @@ then
 fi
 
 docker buildx build ${platform} \
-    -t opendap/hyrax:snapshot \
+    --tag opendap/hyrax:ngap-snapshot \
     --build-arg OLFS_BRANCH="detectClientProtcolChange" \
     --build-arg HYRAX_DEPLOYMENT_CONTEXT=ROOT \
     --build-arg OLFS_BUILD_TARGET=ngap \
