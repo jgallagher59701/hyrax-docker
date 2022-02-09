@@ -295,6 +295,8 @@ ARG OLFS_FORCE
 ENV OLFS_FORCE ${OLFS_FORCE:-"nope"}
 RUN set -e && echo "OLFS_FORCE: ${OLFS_FORCE}"
 
+USER root
+
 RUN set -e \
     && echo "OLFS: Cloning" \
     && cd /hyrax \
@@ -338,7 +340,7 @@ ENV HYRAX_DEPLOYMENT_CONTEXT ${HYRAX_DEPLOYMENT_CONTEXT:-"opendap"}
 RUN set -e && \
     echo "HYRAX_DEPLOYMENT_CONTEXT: ${HYRAX_DEPLOYMENT_CONTEXT}"
 
-USER root
+
 RUN set -e \
     && cd /hyrax/olfs \
     && echo "OLFS: Unpacking ${OLFS_BUILD_TARGET}.war file" \
