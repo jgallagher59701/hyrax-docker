@@ -256,11 +256,6 @@ RUN set -e \
     && echo "BES: make install" >&2 \
     && make install
 
-# And then we cleanup.
-RUN set -e \
-    && cd /hyrax/bes \
-    && echo "BES: make -k clean" >&2 \
-    && make -k clean
 #
 # Update the BES configuration to use the new bes user and group.
 RUN set -e \
@@ -273,6 +268,12 @@ RUN set -e \
 
 
 USER root
+
+# And then we cleanup.
+RUN set -x \
+    && cd /hyrax/bes \
+    && echo "BES: make clean" >&2 \
+    && make clean
 
 RUN set -e \
     && ln -s ${prefix}/etc/bes /etc/bes \
