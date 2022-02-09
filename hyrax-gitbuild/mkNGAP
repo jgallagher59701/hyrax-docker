@@ -1,14 +1,14 @@
 #!/bin/bash
 
 
-platform=""
+build_cmd="build"
 if test `uname -m` = "arm64" 
 then 
-    platform="--platform=linux/amd64,linux/arm64"
     docker buildx create --use
+    build_cmd="buildx build --platform=linux/amd64,linux/arm64"
 fi
 
-docker buildx build ${platform} \
+docker ${build_cmd} \
     --tag opendap/hyrax:ngap-snapshot \
     --build-arg OLFS_BRANCH="detectClientProtcolChange" \
     --build-arg HYRAX_DEPLOYMENT_CONTEXT=ROOT \
