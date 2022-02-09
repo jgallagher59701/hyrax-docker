@@ -1,0 +1,10 @@
+#!/bin/bash
+
+docker buildx build \
+    --platform=linux/amd64,linux/arm64 \
+    -t opendap/hyrax:snapshot \
+    --build-arg OLFS_BRANCH="detectClientProtcolChange" \
+    --build-arg HYRAX_DEPLOYMENT_CONTEXT=ROOT \
+    --build-arg OLFS_BUILD_TARGET=ngap \
+    --build-arg OLFS_FORCE_REBUILD=true \
+    hyrax-c7
