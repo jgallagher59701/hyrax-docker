@@ -1,18 +1,9 @@
 #!/bin/bash
 
-
-build_cmd="build"
-if test `uname -m` = "arm64" 
-then 
-    docker buildx create --use
-    build_cmd="buildx build --platform=linux/amd64,linux/arm64"
-fi
-
-docker ${build_cmd} \
-    --tag opendap/hyrax:ngap-snapshot \
+docker  build \
+    -t opendap/hyrax:ngap-snapshot \
     --build-arg OLFS_BRANCH="detectClientProtcolChange" \
     --build-arg HYRAX_DEPLOYMENT_CONTEXT=ROOT \
     --build-arg OLFS_BUILD_TARGET=ngap \
-    --build-arg BES_FORCE=true \
-    --build-arg OLFS_FORCE=true \
+    --build-arg OLFS_FORCE_REBUILD=true \
     hyrax-c7
