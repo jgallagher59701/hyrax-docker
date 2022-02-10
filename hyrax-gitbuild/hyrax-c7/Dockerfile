@@ -251,6 +251,8 @@ RUN set -e \
     && echo "BES: make install" >&2 \
     && make install
 
+USER root
+
 #
 # Update the BES configuration to use the new bes user and group.
 RUN set -e \
@@ -260,9 +262,6 @@ RUN set -e \
     && mv /foo "${bes_conf_file}" \
     && echo "${bes_conf_file}:" >&2 \
     && cat "${bes_conf_file}"  >&2
-
-
-USER root
 
 # And then we cleanup.
 RUN set -x \
