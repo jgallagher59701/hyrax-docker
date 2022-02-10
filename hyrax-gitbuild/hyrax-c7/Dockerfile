@@ -15,7 +15,7 @@
 # Set one or more individual labels
 FROM centos:7
 
-ENV MAKE "make -j2"
+ENV MAKE "make -j8"
 
 ENV GIT_SERVICE=https://github.com
 
