@@ -19,6 +19,10 @@ ENV MAKE "make -j8"
 
 ENV GIT_SERVICE=https://github.com
 
+ARG PURGE
+ENV PURGE ${PURGE:-""}
+RUN echo "PURGE: ${PURGE}"
+
 ARG RELEASE_DATE
 ENV RELEASE_DATE ${RELEASE_DATE:-"unknown"}
 RUN echo "RELEASE_DATE: ${RELEASE_DATE}"
@@ -153,6 +157,10 @@ RUN set -e \
     && ls -l *stamp \
     && ls -l ${prefix}/deps/lib
 
+RUN set -e && \
+    if test -n "${PURGE}" ;then echo "PURGING: /hyrax/hyrax-dependencies"; rm -rf /hyrax/hyrax-dependencies; fi
+
+rm -rf /hyrax/hyrax-dependencies
 ###############################################################
 
 ###############################################################
@@ -192,6 +200,9 @@ RUN set -e \
     && cd /hyrax/libdap4 \
     && echo "LIBDAP4: make clean" >&2 \
     && make clean
+
+RUN set -e && \
+    if test -n "${PURGE}" ;then echo "PURGING: /hyrax/libdap4"; rm -rf /hyrax/libdap4; fi
 
 ###############################################################
 
@@ -268,6 +279,11 @@ RUN set -x \
     && cd /hyrax/bes \
     && echo "BES: make -k clean" >&2 \
     && make -k clean || true
+
+RUN set -e && \
+    if test -n "${PURGE}" ;then echo "PURGING: /hyrax/bes"; rm -rf /hyrax/bes; fi
+
+
 
 RUN set -e \
     && ln -s ${prefix}/etc/bes /etc/bes \
@@ -359,6 +375,9 @@ RUN set -e \
     && cd /hyrax/olfs \
     && echo "OLFS: Cleaning up." \
     && ant clean
+
+RUN set -e && \
+    if test -n "${PURGE}" ;then echo "PURGING: /hyrax/olfs"; rm -rf /hyrax/olfs; fi
 
 ###############################################################
 

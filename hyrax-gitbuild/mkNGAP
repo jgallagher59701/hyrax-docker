@@ -2,6 +2,7 @@
 
 docker  build \
     -t opendap/hyrax:ngap-snapshot \
+    --build-arg PURGE="true" \
     --build-arg OLFS_BRANCH="detectClientProtcolChange" \
     --build-arg HYRAX_DEPLOYMENT_CONTEXT=ROOT \
     --build-arg OLFS_BUILD_TARGET=ngap \
