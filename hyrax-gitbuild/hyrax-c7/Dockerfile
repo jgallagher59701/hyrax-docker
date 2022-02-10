@@ -160,7 +160,6 @@ RUN set -e \
 RUN set -e && \
     if test -n "${PURGE}" ;then echo "PURGING: /hyrax/hyrax-dependencies"; rm -rf /hyrax/hyrax-dependencies; fi
 
-rm -rf /hyrax/hyrax-dependencies
 ###############################################################
 
 ###############################################################
