@@ -89,8 +89,15 @@ RUN set -e \
     && echo "Creating user 'bes'" >&2 \
     &&  useradd -U -m bes
 
-RUN mkdir /hyrax \
-    && mkdir /hyrax/build \
+ENV prefix /hyrax/build
+RUN echo "prefix: '${prefix}'" >&2
+
+ENV PATH ${prefix}/bin:${prefix}/deps/bin:$PATH
+RUN echo "PATH: '${PATH}'" >&2
+
+RUN set -e \
+    && echo "Creating prefix directory: ${prefix}" >&2 \
+    && mkdir -p ${prefix} \
     && chown -R bes:bes /hyrax
 
 USER bes
@@ -98,14 +105,8 @@ RUN set -e \
     && echo -n "I am " \
     && whoami
 
-ENV prefix "/hyrax/build"
-RUN echo "prefix: '${prefix}'" >&2
-
-ENV PATH $prefix/bin:$prefix/deps/bin:$PATH
-RUN echo "PATH: '${PATH}'" >&2
-
-ENV bes_site_conf_file "${prefix}/etc/bes/site.conf"
-RUN echo "bes_site_conf_file: '${bes_site_conf_file}'" >&2
+ENV bes_conf_file "${prefix}/etc/bes/bes.conf"
+RUN echo "bes_conf_file: '${bes_conf_file}'" >&2
 
 ###############################################################
 # Retrieve, build, and install hyrax-dependencies
@@ -199,7 +200,7 @@ RUN set -e \
 #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 ARG BES_FORCE
 ENV BES_FORCE ${BES_FORCE:-"nope"}
-RUN set -e && echo "BES_FORCE_REBUILD: ${BES_FORCE_REBUILD}"
+RUN set -e && echo "BES_FORCE: ${BES_FORCE}"
 
 #
 # First we clone the BES repo.
@@ -208,12 +209,6 @@ RUN set -e \
     && cd /hyrax \
     && git clone ${GIT_SERVICE}/OPENDAP/bes bes \
     && echo "Cloned BES project." >&2
-#
-# Update the BES submodules
-#RUN set -e \
-#    && echo "BES: Updating Git Submodules." >&2 \
-#    && cd /hyrax/bes \
-#    && git submodule update --init
 
 #
 # Now we check out the requested BES branch
@@ -260,11 +255,11 @@ RUN set -e \
 # Update the BES configuration to use the new bes user and group.
 RUN set -e \
     && cd /hyrax/bes \
-    && echo "Setting BES User and Group to the 'bes' user in ${bes_site_conf_file}" >&2 \
-    && echo "BES.User=bes" >> "${bes_site_conf_file}" \
-    && echo "BES.Group=bes" >> "${bes_site_conf_file}" \
-    && echo "${bes_site_conf_file}:" >&2 \
-    && cat "${bes_site_conf_file}"  >&2
+    && echo "Setting BES User and Group to the 'bes' user in ${bes_conf_file}" >&2 \
+    && cat ${bes_conf_file} | sed -e "s/user_name/bes/g" -e "s/group_name/bes/g" > /foo \
+    && mv /foo "${bes_conf_file}" \
+    && echo "${bes_conf_file}:" >&2 \
+    && cat "${bes_conf_file}"  >&2
 
 
 USER root

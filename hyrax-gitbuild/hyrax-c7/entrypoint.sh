@@ -12,20 +12,21 @@ echo "Greetings, I am "`whoami`"." >&2
 set -e
 #set -x
 
-
-echo "CATALINA_HOME: ${CATALINA_HOME}"
+echo "CATALINA_HOME: ${CATALINA_HOME}" >&2
 export PATH=${CATALINA_HOME}/bin:$PATH
 
+# The string HYRAX_BUILD_PREFIX is replaced by the Dockerfile activity with
+# the value of 'prefix' used in the build.
 export prefix="HYRAX_BUILD_PREFIX"
-echo "prefix: ${prefix}"
+echo "prefix: ${prefix}" >&2
 
-export PATH=$prefix/bin:$prefix/deps/bin:$PATH
-echo "PATH: ${PATH}"
+export PATH=${prefix}/bin:${prefix}/deps/bin:$PATH
+echo "PATH: ${PATH}" >&2
 
+# The string HYRAX_DEPLOYMENT_CONTEXT is replaced by the Dockerfile activity
+# with the deployment context to which the build was made.
 export DEPLOYMENT_CONTEXT="HYRAX_DEPLOYMENT_CONTEXT"
-echo "DEPLOYMENT_CONTEXT: ${DEPLOYMENT_CONTEXT}"
-
-# while true ; do sleep 1; done
+echo "DEPLOYMENT_CONTEXT: ${DEPLOYMENT_CONTEXT}" >&2
 
 ################################################################################
 # Inject one set of credentials into .netrc
@@ -49,8 +50,8 @@ fi
 # Inject user-access.xml document to define the servers relationship to
 # EDL and the user access rules.
 #
-echo "CATALINA_HOME: ${CATALINA_HOME}" >&2
-user_access_xml_file="/usr/share/tomcat/webapps/${DEPLOYMENT_CONTEXT}/WEB-INF/conf/user-access.xml"
+user_access_xml_file="${CATALINA_HOME}/webapps/${DEPLOYMENT_CONTEXT}/WEB-INF/conf/user-access.xml"
+echo "user_access_xml_file: ${user_access_xml_file}" >&2
 # Test if the user-access.xml env variable is set (by way of not unset) and not empty
 if [ -n "${USER_ACCESS_XML}" ] ; then
     echo "${USER_ACCESS_XML}" > ${user_access_xml_file}
@@ -66,8 +67,13 @@ fi
 #
 bes_site_conf_file="${prefix}/etc/bes/site.conf"
 echo "bes_site_conf_file: ${bes_site_conf_file}" >&2
-cat "${bes_site_conf_file}" >&2
-# Test if the bes.conf env variable is set (by way of not unset) and not empty
+
+# We don't expect there to be an existing site.conf file
+# but if there is we want to see it in the log, but we don't
+# want this to fail, thus the "|| true" bit.
+ls -l  "${bes_site_conf_file}" || true >&2
+
+# Test if the bes.conf env variable is not empty and is not use it.
 if [ -n "${BES_SITE_CONF}" ] ; then
     echo "Located environment variable BES_SITE_CONF. Value:" >&2
     echo "${BES_SITE_CONF}" >&2
@@ -82,7 +88,7 @@ fi
 # Inject Tomcat's context.xml configuration document to configure the Tomcat to
 # utilize Session Management in the NGAP environment.
 #
-tomcat_context_xml_file="/usr/share/tomcat/conf/context.xml"
+tomcat_context_xml_file="${CATALINA_HOME}/conf/context.xml"
 # Test if the bes.conf env variable is set (by way of not unset) and not empty
 if [ -n "${TOMCAT_CONTEXT_XML}" ] ; then
     echo "${TOMCAT_CONTEXT_XML}" > ${tomcat_context_xml_file}
