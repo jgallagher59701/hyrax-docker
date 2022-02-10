@@ -267,7 +267,7 @@ RUN set -e \
 RUN set -x \
     && cd /hyrax/bes \
     && echo "BES: make -k clean" >&2 \
-    && make -k clean
+    && make -k clean || true
 
 RUN set -e \
     && ln -s ${prefix}/etc/bes /etc/bes \
