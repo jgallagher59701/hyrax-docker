@@ -158,7 +158,7 @@ RUN set -e \
     && ls -l ${prefix}/deps/lib
 
 RUN set -e && \
-    if test -n "${PURGE}" ;then echo "PURGING: /hyrax/hyrax-dependencies"; rm -rf /hyrax/hyrax-dependencies; fi
+    if test -n "${PURGE}" ;then echo "PURGING: /hyrax/hyrax-dependencies"; rm -rfv /hyrax/hyrax-dependencies; fi
 
 ###############################################################
 
@@ -201,7 +201,7 @@ RUN set -e \
     && make clean
 
 RUN set -e && \
-    if test -n "${PURGE}" ;then echo "PURGING: /hyrax/libdap4"; rm -rf /hyrax/libdap4; fi
+    if test -n "${PURGE}" ;then echo "PURGING: /hyrax/libdap4"; rm -rfv /hyrax/libdap4; fi
 
 ###############################################################
 
@@ -280,7 +280,7 @@ RUN set -x \
     && make -k clean || true
 
 RUN set -e && \
-    if test -n "${PURGE}" ;then echo "PURGING: /hyrax/bes"; rm -rf /hyrax/bes; fi
+    if test -n "${PURGE}" ;then echo "PURGING: /hyrax/bes"; rm -rfv /hyrax/bes; fi
 
 
 
@@ -376,7 +376,7 @@ RUN set -e \
     && ant clean
 
 RUN set -e && \
-    if test -n "${PURGE}" ;then echo "PURGING: /hyrax/olfs"; rm -rf /hyrax/olfs; fi
+    if test -n "${PURGE}" ;then echo "PURGING: /hyrax/olfs"; rm -rfv /hyrax/olfs; fi
 
 ###############################################################
 
