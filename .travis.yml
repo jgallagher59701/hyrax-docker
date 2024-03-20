@@ -12,7 +12,9 @@ services:
 
 branches:
   only:
-    - master
+  - master
+  - main
+  - /^(.*-test-deploy)$/
 
 notifications:
   email:
@@ -57,7 +59,8 @@ env:
 
 before_install:
   - pip3 install awscli
-  - if test "${TRAVIS_PULL_REQUEST}" = "false"; then export DEPLOY_ME="true"; else export DEPLOY_ME="false"; fi
+  - if test "$TRAVIS_PULL_REQUEST" = "false" || [[ "$TRAVIS_PULL_REQUEST_BRANCH" =~ ^(.*-test-deploy)$ ]]; then export DEPLOY_ME="true"; else export DEPLOY_ME="false"; fi
+  - echo "TRAVIS_PULL_REQUEST is $TRAVIS_PULL_REQUEST, DEPLOY_ME is ${DEPLOY_ME}, TRAVIS_PULL_REQUEST_BRANCH is $TRAVIS_PULL_REQUEST_BRANCH"
 
 install:
   - echo "print env:"
@@ -284,7 +287,7 @@ jobs:
         - export TEST_IMAGE=opendap/hyrax:${HYRAX_VERSION}
         - echo "Running Hyrax Regression Test Script on ${TEST_IMAGE}"
         - ./regression_test_script -i "${TEST_IMAGE}"
-        - export DEPLOY_ME="false"
+        - export DEPLOY_ME="true"
 
 before_deploy:
   - export DOCKER_LOGIN=`aws ecr get-login --region us-east-1 | sed "s/-e none //g"`;
